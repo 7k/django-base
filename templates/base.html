@@ -1,0 +1,60 @@
+{% extends "skeleton.html" %}
+
+{% load tree_menu_tags gravatar pagination_tags %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <script src="{{ STATIC_URL }}js/jquery.js" type="text/javascript"></script>
+  <script src="{{ STATIC_URL }}js/jquery.ba-hashchange.min.js" type="text/javascript"></script>
+  <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="screen"/>
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,300italic' type='text/css'>
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:300,600' type='text/css'>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/icons.css" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" type="text/css" media="screen"/>
+{% endblock %}
+
+{% block body %}
+  <div id="page">
+    <div id="top-bar" class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="user xxsmall pull-right">
+            <span class="avatar" style="background-image: url({% gravatar_for_email request.user.email 16 %})"></span>
+            <a class="name" href="{{ request.user.get_absolute_url }}">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+          </div>
+          <a class="brand" href="/">Home</a>
+          <form class="navbar-search" action="." method="get" id="search_form">
+            <div class="input-append" style="z-index: 10000; margin-right: 10px">
+              <input type="text" name="q" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}" class="span2" placeholder="Search"/>
+              <span class="add-on mini-icon mini-icon-search-input"></span>
+            </div>
+          </form>
+          {% show_menu "navigation" %}
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="content row">
+        <div id="sidebar" class="{% block sidebar_class %}{% endblock %}">
+          <div class="affix">{% block sidebar %}{% endblock %}</div>
+        </div>
+        <div class="{% block content_class %}span12{% endblock %}">
+          <div id="header" class="clearfix">
+            {% block content_title %}{% endblock %}
+          </div>
+          <div id="content">
+            {% block content %}{% endblock %}
+            {% if is_paginated %}{% paginate %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer" class="container">{% block footer %}{% endblock %}</div>
+  </div>
+{% endblock %}
