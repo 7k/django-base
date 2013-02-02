@@ -25,8 +25,13 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="user xxsmall pull-right">
-            <span class="avatar" style="background-image: url({% gravatar_for_email request.user.email 16 %})"></span>
-            <a class="name" href="{{ request.user.get_absolute_url }}">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+            {% if request.user %}
+              <span class="avatar" style="background-image: url({% gravatar_for_email request.user.email 16 %})"></span>
+              <a class="name" href="{{ request.user.get_absolute_url }}">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+            {% else %}
+              <span class="avatar" style="background-image: url({% gravatar_for_email user.email 16 %})"></span>
+              <a class="name" href="{{ user.get_absolute_url }}">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</a>
+            {% endif %}
           </div>
           <a class="brand" href="/">Home</a>
           <form class="navbar-search" action="." method="get" id="search_form">
