@@ -26,14 +26,15 @@
           <ul class="nav user xxsmall pull-right">
             <li class="dropdown">
             {% if request.user.username %}
-              <a class="dropdown-toggle name" data-toggle="dropdown" href="{{ request.user.get_absolute_url }}">
+              <a class="dropdown-toggle name" data-toggle="dropdown" href="{{ request.user.get_profile.get_absolute_url }}">
                 <span class="avatar" style="background-image: url({% gravatar_for_email request.user.email 16 %})"></span>
                 {% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a class href="{{ request.user.get_absolute_url }}">Profile</a></li>
-                <li><a class href="/auth/logout?next={{ request.path_info }}">Log out</a></li>
+                <li><a class href="{{ request.user.get_profile.get_absolute_url }}"><i class="icon-user"></i> Profile</a></li>
+                <li><a class href="{% url profile_edit %}"><i class="icon-pencil"></i> Edit profile</a></li>
+                <li><a class href="/auth/logout?next={{ request.path_info }}"><i class="icon-off"></i> Log out</a></li>
               </ul>
             {% else %}
               <a class="name" href="{% url openid-login %}?next={{ request.path_info }}">

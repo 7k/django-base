@@ -1,7 +1,7 @@
 $(function() {
   $(window).load(function() {
-    if ($('#top-bar')) {
-      $('#top-bar li a').each(function(index, element) {
+    if ($('#navigation')) {
+      $('#navigation > li > a').each(function(index, element) {
         var classes = $(element).attr('class').split(' ');
         for (var key in classes) {
           if ($('body').hasClass(classes[key])) {
