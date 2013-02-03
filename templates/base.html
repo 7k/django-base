@@ -34,12 +34,6 @@
             {% endif %}
           </div>
           <a class="brand" href="/">Home</a>
-          <form class="navbar-search" action="." method="get" id="search_form">
-            <div class="input-append" style="z-index: 10000; margin-right: 10px">
-              <input type="text" name="q" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}" class="span2" placeholder="Search"/>
-              <span class="add-on mini-icon mini-icon-search-input"></span>
-            </div>
-          </form>
           {% show_menu "navigation" %}
         </div>
       </div>
