@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+{% block body_class %}{{ block.super }} {{ object.slug }} page{% endblock %}
+{% block body_id %}{{ object.slug }}{% endblock %}
+
+{% block content_title %}<h2>{{ object.title }}</h2>{% endblock %}
+
+{% block content %}
+  {% if object.show_publish %}
+    <p class="muted">{{ object.publish|date:"j F Y" }}</p>
+  {% endif %}
+  {% load stringutils %}
+  {{ object.body|format_text }}
+{% endblock %}
