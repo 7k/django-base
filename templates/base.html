@@ -21,18 +21,29 @@
 
 {% block body %}
   <div id="page">
-    <div id="top-bar" class="navbar navbar-fixed-top">
+    <div id="top-bar" class="navbar navbar-fixed-top navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-          <div class="user xxsmall pull-right">
-            {% if request.user %}
-              <span class="avatar" style="background-image: url({% gravatar_for_email request.user.email 16 %})"></span>
-              <a class="name" href="{{ request.user.get_absolute_url }}">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+          <ul class="nav user xxsmall pull-right">
+            <li class="dropdown">
+            {% if request.user.username %}
+              <a class="dropdown-toggle name" data-toggle="dropdown" href="{{ request.user.get_absolute_url }}">
+                <span class="avatar" style="background-image: url({% gravatar_for_email request.user.email 16 %})"></span>
+                {% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a class href="{{ request.user.get_absolute_url }}">Profile</a></li>
+                <li><a class href="/auth/logout?next={{ request.path_info }}">Log out</a></li>
+              </ul>
             {% else %}
-              <span class="avatar" style="background-image: url({% gravatar_for_email user.email 16 %})"></span>
-              <a class="name" href="{{ user.get_absolute_url }}">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</a>
+              <a class="name" href="{% url openid-login %}?next={{ request.path_info }}">
+                <span class="avatar" style="background-image: url({% gravatar_for_email '' 16 %})"></span>
+                Log in
+              </a>
             {% endif %}
-          </div>
+            </li>
+          </ul>
           <a class="brand" href="/">Home</a>
           {% show_menu "navigation" %}
         </div>
