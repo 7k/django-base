@@ -10,6 +10,6 @@
   {% if object.show_publish %}
     <p class="muted">{{ object.publish|date:"j F Y" }}</p>
   {% endif %}
-  {% load stringutils %}
-  {{ object.body|format_text }}
+  {% load inlines markup %}
+  {{ object.body|render_inlines|markdown }}
 {% endblock %}
