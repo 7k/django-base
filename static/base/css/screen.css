@@ -68,7 +68,8 @@ table th.headerSortDown { background-image: url(../images/sort-desc.png); }
 .change-summary .syntaxhighlighter.diff .string, .change-summary .syntaxhighlighter.diff .string a { color: teal!important; }
 .change-summary .syntaxhighlighter .gutter .line { border-right: 3px solid #bbb!important; }
 
-#top-bar .dropdown-menu li > a { padding: 4px 10px; font-size: 1.1em; }
+#top-bar .dropdown-menu li > a { padding: 8px 20px; font-size: 1.1em; }
+#top-bar .user .dropdown-menu li > a { padding: 4px 10px; }
 .content .nav .dropdown-menu .badge.pull-right { margin-left: 50px; }
 
 /* USERS */
