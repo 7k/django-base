@@ -11,7 +11,7 @@ $(function() {
         }
       });
     }
-    $('.nav .dropdown, .btn-group').mouseenter(function(){ if (!$(this).hasClass('open')) { $('> a.dropdown-toggle', this).click(); }});
+    //$('.nav .dropdown, .btn-group').mouseenter(function(){ if (!$(this).hasClass('open')) { $('> a.dropdown-toggle', this).click(); }});
     $('.tooltip').tooltip();
     $('.popover').popover();
     $("*[rel=popover]").popover();
