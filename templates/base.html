@@ -45,12 +45,12 @@
             </li>
           </ul>
           <a class="brand" href="/">Home</a>
-          {% show_menu "navigation" %}
+          {% block navigation %}{% show_menu "navigation" %}{% endblock %}
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="content row">
+    <div class="{% block container_class %}container{% endblock %}">
+      <div class="content {% block container_row_class %}row{% endblock %}">
         <div id="sidebar" class="{% block sidebar_class %}{% endblock %}">
           <div class="affix">{% block sidebar %}{% endblock %}</div>
         </div>
