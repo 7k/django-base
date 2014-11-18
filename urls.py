@@ -1,6 +1,6 @@
 '''URLconf for base app.
 '''
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 from base.views import PageDetail, Home
 
