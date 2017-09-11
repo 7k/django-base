@@ -24,6 +24,7 @@ class Page(models.Model):
                                        'the published date on the page')
     created = models.DateTimeField('created', auto_now_add=True)
     modified = models.DateTimeField('modified', auto_now=True)
+    keywords = models.CharField('keywords', null=True, blank=True, max_length=200)
     objects = PublicManager()
 
     class Meta:
