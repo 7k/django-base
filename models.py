@@ -1,7 +1,6 @@
-import datetime
-
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 from managers import PublicManager
 
@@ -19,7 +18,7 @@ class Page(models.Model):
                                related_name='pages')
     body = models.TextField('body', blank=True)
     status = models.IntegerField('status', choices=STATUS_CHOICES, default=2)
-    publish = models.DateTimeField('publish', default=datetime.datetime.now)
+    publish = models.DateTimeField('publish', default=timezone.now)
     show_publish = models.BooleanField('show publish', default=True,
                                        help_text='Whether or not to show '
                                        'the published date on the page')
