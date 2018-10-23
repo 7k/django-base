@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
-from managers import PublicManager
+from .managers import PublicManager
 
 
 class Page(models.Model):
@@ -15,7 +15,7 @@ class Page(models.Model):
     title = models.CharField('title', max_length=200)
     slug = models.SlugField('slug', unique=True)
     author = models.ForeignKey(User, blank=True, null=True,
-                               related_name='pages')
+                               related_name='pages', on_delete=models.CASCADE)
     body = models.TextField('body', blank=True)
     status = models.IntegerField('status', choices=STATUS_CHOICES, default=2)
     publish = models.DateTimeField('publish', default=timezone.now)
@@ -37,6 +37,5 @@ class Page(models.Model):
     def __unicode__(self):
         return u'%s' % self.title
 
-    @models.permalink
     def get_absolute_url(self):
         return ('page', None, {'slug': self.slug})
