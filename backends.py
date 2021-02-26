@@ -6,8 +6,7 @@ from django.conf import settings
 
 
 SUPERUSER_EMAILS = getattr(settings, 'CLOUDFLARE_ACCESS_BACKEND_SUPERUSER_EMAILS', [])
-
-CF_ACCESS_URL = 'https://tkanemoto.cloudflareaccess.com/cdn-cgi/access/get-identity'
+CF_ACCESS_URL = getattr(settings, 'CLOUDFLARE_ACCESS_BACKEND_IDENTITY_URL', None)
 
 
 class CloudFlareAccessUserBackend(RemoteUserBackend):
@@ -27,7 +26,7 @@ class CloudFlareAccessUserBackend(RemoteUserBackend):
         email = request.META.get('HTTP_CF_ACCESS_CLAIM_EMAIL', None)
         token = request.META.get('HTTP_CF_ACCESS_JWT_ASSERTION', None)
 
-        if token is not None:
+        if token is not None and CF_ACCESS_URL is not None:
             r = requests.get(CF_ACCESS_URL, cookies={'CF_Authorization': token})
             if r.status_code == 200:
                 info = r.json()
