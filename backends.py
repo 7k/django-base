@@ -14,9 +14,15 @@ class CloudFlareAccessUserBackend(RemoteUserBackend):
 
     def authenticate(self, request, remote_user):
         if remote_user == '(null)':
-            remote_user = request.META.get('Cf-Access-Claim-Common-Name', 'service-user')
+            #remote_user = request.META.get('HTTP_CF_ACCESS_CLAIM_COMMON_NAME', 'service-user')
+            remote_user = None
 
         user = super(CloudFlareAccessUserBackend, self).authenticate(request, remote_user)
+
+        email = request.META.get('HTTP_CF_ACCESS_CLAIM_EMAIL', None)
+        ip = request.META.get('HTTP_CF_CONNECTING_IP', None)
+        country = request.META.get('HTTP_CF_IPCOUNTRY', None)
+        logging.info(f'CF : remote_user:{remote_user} email:{email} ip:{ip} country:{country} ')
 
         return user
 
